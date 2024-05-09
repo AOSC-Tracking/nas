@@ -61,12 +61,10 @@ static int      endian = 1;
 
 _FUNCPROTOBEGIN
 
-#ifndef mips
 extern unsigned short
 FileSwapS(
 			unsigned short
 );
-#endif	/* mips */
 
 extern AuUint32
 FileSwapL(
@@ -85,14 +83,12 @@ FileReadL(
                         int			/* swap? */
 );
 
-#ifndef mips
 extern int
 FileWriteS(
                         unsigned short,
 			FILE	*,
                         int			/* swap? */
 );
-#endif
 
 extern int
 FileWriteL(
