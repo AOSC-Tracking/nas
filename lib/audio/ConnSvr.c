@@ -76,6 +76,8 @@
 # include <sys/stropts.h>
 #endif
 
+#include <arpa/inet.h>
+
 #ifdef STREAMSCONN
 #define select _AuSelect
 #endif

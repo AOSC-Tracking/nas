@@ -29,6 +29,7 @@
 #include <audio/audio.h>
 #include <audio/Aproto.h>
 #include "au.h"
+#include "aulog.h"
 
 #include "nasconf.h"
 

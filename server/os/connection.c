@@ -1713,6 +1713,9 @@ CheckConnections()
     }
 }
 
+// Ugh, should be in a header
+int FlushClient(ClientPtr who, OsCommPtr oc, char *extraBuf, int extraCount);
+
 /*****************
  * CloseDownConnection
  *    Delete client from AllClients and free resources 
@@ -1734,7 +1737,7 @@ ClientPtr client;
 }
 
 
-AddEnabledDevice(fd)
+void AddEnabledDevice(fd)
 int fd;
 {
     BITSET(EnabledDevices, fd);
@@ -1742,7 +1745,7 @@ int fd;
 }
 
 
-RemoveEnabledDevice(fd)
+void RemoveEnabledDevice(fd)
 int fd;
 {
     BITCLEAR(EnabledDevices, fd);
@@ -1759,7 +1762,7 @@ int fd;
  *    This routine is "undone" by ListenToAllClients()
  *****************/
 
-OnlyListenToOneClient(client)
+void OnlyListenToOneClient(client)
 ClientPtr client;
 {
     OsCommPtr oc = (OsCommPtr) client->osPrivate;
@@ -1789,7 +1792,7 @@ ClientPtr client;
  *    Undoes OnlyListentToOneClient()
  ****************/
 
-ListenToAllClients()
+void ListenToAllClients()
 {
     if (GrabInProgress) {
         ORBITS(AllSockets, AllSockets, SavedAllSockets);
@@ -1801,7 +1804,7 @@ ListenToAllClients()
 
 /* make client impervious to grabs; assume only executing client calls this */
 
-MakeClientGrabImpervious(client)
+void MakeClientGrabImpervious(client)
 ClientPtr client;
 {
     OsCommPtr oc = (OsCommPtr) client->osPrivate;
@@ -1812,7 +1815,7 @@ ClientPtr client;
 
 /* make client pervious to grabs; assume only executing client calls this */
 
-MakeClientGrabPervious(client)
+void MakeClientGrabPervious(client)
 ClientPtr client;
 {
     OsCommPtr oc = (OsCommPtr) client->osPrivate;

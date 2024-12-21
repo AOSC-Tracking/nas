@@ -16,6 +16,9 @@
 static char     *ptr;
 static int parsebool(char *str);
 extern int yylineno;
+void yyerror(const char *s);
+void RemoveDQuote(char *str);
+int yylex();
 
 %}
 
@@ -167,7 +170,7 @@ number          : NUMBER                { $$ = $1; }
 
 %%
 
-RemoveDQuote(str)
+void RemoveDQuote(str)
 char *str;
 {
     char *i, *o;

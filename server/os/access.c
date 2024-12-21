@@ -208,6 +208,14 @@ static int AccessEnabled = DEFAULT_ACCESS_CONTROL;
 static int LocalHostEnabled = FALSE;
 static int UsingXdmcp = FALSE;
 
+void AddLocalHosts()
+{
+    HOST *self;
+
+    for (self = selfhosts; self; self = self->next)
+        (void) NewHost(self->family, self->addr, self->len);
+}
+
 /*
  * called when authorization is not enabled to add the
  * local host to the access list
@@ -245,9 +253,9 @@ AccessUsingXdmcp(void)
 /* SVR4, ISC, linux use this if SIOCGIFCONF fails */
 #ifdef USE_FALLBACK_DEFINESELF
 static
-FallbackDefineSelf(fd)
+int FallbackDefineSelf(fd)
 #else
-DefineSelf(fd)
+int DefineSelf(fd)
 #endif
 int fd;
 {
@@ -315,8 +323,7 @@ int fd;
 /* Define this host for access control.  Find all the hosts the OS knows about 
  * for this fd and add them to the selfhosts list.
  */
-DefineSelf(fd)
-int fd;
+int DefineSelf(int fd)
 {
     char buf[2048], *cp, *cplim;
     struct ifconf ifc;
@@ -398,8 +405,7 @@ int fd;
 #else /* _MINIX */
 /* Define this host for access control.
  */
-DefineSelf(fd)
-int fd;
+in DefineSelf(int fd)
 {
     int len;
     int r;
@@ -435,17 +441,8 @@ int fd;
 #endif /* AMOEBA */
 
 
-AddLocalHosts()
-{
-    HOST *self;
-
-    for (self = selfhosts; self; self = self->next)
-        (void) NewHost(self->family, self->addr, self->len);
-}
-
 /* Reset access control list to initial hosts */
-ResetHosts(display)
-char *display;
+void ResetHosts(char *display)
 {
     HOST *host;
     char hostname[120];
@@ -807,7 +804,7 @@ CheckAddr(int family, pointer pAddr, unsigned length)
 /* Check if a host is not in the access control list. 
  * Returns 1 if host is invalid, 0 if we've found it. */
 
-InvalidHost(saddr, len)
+int InvalidHost(saddr, len)
 #ifdef AMOEBA
 ipaddr_t *saddr;
 #else

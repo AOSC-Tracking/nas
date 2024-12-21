@@ -36,6 +36,7 @@ from the X Consortium.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include <fcntl.h>
 #include <sys/types.h>
@@ -60,6 +61,7 @@ from the X Consortium.
 #endif
 
 #include "os.h"
+#include "aulog.h"
 
 void
 osBecomeOrphan(void)

@@ -138,9 +138,7 @@ PERFORMANCE OF THIS SOFTWARE.
 #endif
 #include <sys/types.h>
 #include <errno.h>
-#ifndef _POSIX_SOURCE
-# include <sys/ioctl.h>
-#endif
+#include <sys/ioctl.h>
 
 #if defined(__CYGWIN__)
 # ifndef O_SYNC

@@ -133,9 +133,6 @@ extern void safe_free(void *ptr);
 int ReadRequestFromClient();
 void CloseDownConnection();
 void CreateWellKnownSockets();
-void ErrorF();
-void Error();
-void FatalError();
 void ProcessCommandLine();
 char *FindConfigFile();
 void FlushAllOutput();
@@ -153,5 +150,21 @@ void *debug_Xrealloc(char *file, int line, pointer ptr,
                      unsigned long amount);
 #endif
 long GetTimeInMillis();
+
+void osBecomeOrphan(void);
+void osBecomeDaemon(void);
+int DefineSelf(int fd);
+void EnableLocalHost(void);
+void ResetHosts(char *display);
+void ResetAuthorization(void);
+void OsInitAllocator(void);
+void AuditF(const char *format, ...);
+void ErrorF(const char *format, ...);
+void FatalError(const char *format, ...);
+void Error(char *str);
+
+#include <sys/types.h>
+#include <sys/socket.h>
+int InvalidHost(struct sockaddr *saddr, int len);
 
 #endif /* OS_H */

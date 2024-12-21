@@ -80,7 +80,7 @@ typedef int AuBlock;
 
 /* use functions defined in auvoxware.c.  These are also used by dia/ */
 AuBlock _AuBlockAudio(void);
-void    _AuUnblockAudio(AuBlock _x);
+void    _AuUnBlockAudio(AuBlock _x);
 
 #define AuBlockAudio()     _AuBlockAudio()
 #define AuUnBlockAudio(_x) _AuUnBlockAudio(_x)

@@ -370,7 +370,7 @@ int count;
  *
  **********************/
 
-ResetCurrentRequest(client)
+void ResetCurrentRequest(client)
 ClientPtr client;
 {
     OsCommPtr oc = (OsCommPtr) client->osPrivate;
@@ -966,7 +966,7 @@ int count;
     return TRUE;
 }
 
-ResetCurrentRequest(client)
+void ResetCurrentRequest(client)
 ClientPtr client;
 {
     OsCommPtr oc = (OsCommPtr) client->osPrivate;
@@ -1390,7 +1390,7 @@ int count;
     return (TRUE);
 }
 
-ResetCurrentRequest(client)
+void ResetCurrentRequest(client)
 ClientPtr client;
 {
     OsCommPtr oc = (OsCommPtr) client->osPrivate;

@@ -5,6 +5,8 @@
  */
 
 #include <fcntl.h>
+#include <string.h>
+#include "os.h"
 #include "nasconf.h"
 #include "config.h"
 #include "aulog.h"

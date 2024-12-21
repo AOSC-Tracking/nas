@@ -119,7 +119,7 @@ char *data;
     return (AuID) - 1;
 }
 
-MitFromID(id, data_lenp, datap)
+int MitFromID(id, data_lenp, datap)
 AuID id;
 unsigned short *data_lenp;
 char **datap;
@@ -136,7 +136,7 @@ char **datap;
     return 0;
 }
 
-MitRemoveCookie(data_length, data)
+int MitRemoveCookie(data_length, data)
 unsigned short data_length;
 char *data;
 {

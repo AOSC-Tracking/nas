@@ -26,6 +26,8 @@
 #ifndef _AU_H_
 #define _AU_H_
 
+#include <unistd.h>
+
 /* This will define the appropriate *_SERVER */
 #include "auservertype.h"
 

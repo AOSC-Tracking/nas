@@ -53,6 +53,7 @@ SOFTWARE.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <audio/audio.h>
 #include <audio/Aproto.h>
 #include "NasConfig.h"
@@ -64,6 +65,8 @@ SOFTWARE.
 #include "globals.h"
 #include "nasconf.h"
 #include "release.h"
+#include "gram.h"
+#include "aulog.h"
 
 extern void OsInit(void), InitClient(), ResetWellKnownSockets(),
 Dispatch(), FreeAllResources();

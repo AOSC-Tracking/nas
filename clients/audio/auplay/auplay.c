@@ -146,7 +146,7 @@ do_file(char *fname)
 	fprintf(stderr, "Couldn't play file \"%s\"\n", fname);
 }
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     int             i,
                     numfnames,

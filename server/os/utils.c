@@ -53,6 +53,7 @@ SOFTWARE.
 #include <audio/Aproto.h>
 #include <errno.h>
 #include <limits.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "nasconf.h"
@@ -564,19 +565,37 @@ OsInitAllocator(void)
     return;
 }
 
+static int _vfprintf_wrapper(FILE *restrict stream,
+                             const char *restrict format,
+                             va_list ap)
+{
+    int ret = 0;
+
+#ifdef AMOEBA
+    mu_lock(&print_lock);
+#endif
+
+    ret = vfprintf(stream, format, ap);
+
+#ifdef AMOEBA
+    mu_unlock(&print_lock);
+#endif
+
+    return ret;
+}
+
 /*VARARGS1*/
-void
-AuditF(char *f, char *s0, char *s1, char *s2, char *s3, char *s4, char *s5,
-       char *s6, char *s7, char *s8, char *s9)
-{                               /* limit of ten args */
+void AuditF(const char *format, ...)
+{
 #ifdef X_NOT_STDC_ENV
     long tm;
 #else
     time_t tm;
 #endif
     char *autime, *s;
+    va_list ap;
 
-    if (*f != ' ') {
+    if (*format != ' ') {
         time(&tm);
         autime = ctime(&tm);
         if (s = index(autime, '\n'))
@@ -587,36 +606,35 @@ AuditF(char *f, char *s0, char *s1, char *s2, char *s3, char *s4, char *s5,
             s = argvGlobal[0];
         ErrorF("AUDIT: %s: %d %s: ", autime, getpid(), s);
     }
-    ErrorF(f, s0, s1, s2, s3, s4, s5, s6, s7, s8, s9);
 
+    va_start(ap, format);
+    _vfprintf_wrapper(stderr, format, ap);
+    va_end(ap);
     return;
 }
 
-/*VARARGS1*/
-void
-FatalError(char *f, char *s0, char *s1, char *s2, char *s3, char *s4,
-           char *s5, char *s6, char *s7, char *s8, char *s9)
-{                               /* limit of ten args */
+void FatalError(const char *format, ...)
+{
+    va_list ap;
+
     ErrorF("\nFatal server error:\n");
-    ErrorF(f, s0, s1, s2, s3, s4, s5, s6, s7, s8, s9);
+
+    va_start(ap, format);
+    _vfprintf_wrapper(stderr, format, ap);
+    va_end(ap);
+
     ErrorF("\n");
+
     AbortServer();
      /*NOTREACHED*/ return;
 }
 
-/*VARARGS1*/
-void
-ErrorF(char *f, char *s0, char *s1, char *s2, char *s3, char *s4, char *s5,
-       char *s6, char *s7, char *s8, char *s9)
-{                               /* limit of ten args */
-#ifdef AMOEBA
-    mu_lock(&print_lock);
-#endif
-    fprintf(stderr, f, s0, s1, s2, s3, s4, s5, s6, s7, s8, s9);
-#ifdef AMOEBA
-    mu_unlock(&print_lock);
-#endif
+void ErrorF(const char *format, ...)
+{
+    va_list ap;
+    va_start(ap, format);
+    _vfprintf_wrapper(stderr, format, ap);
+    va_end(ap);
 
     return;
 }
-

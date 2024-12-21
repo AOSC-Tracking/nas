@@ -83,7 +83,7 @@ static char *authorization_file = (char *) NULL;
 static int AuthorizationIndex = 0;
 static Bool ShouldLoadAuth = TRUE;
 
-InitAuthorization(file_name)
+void InitAuthorization(file_name)
 char *file_name;
 {
     authorization_file = file_name;
@@ -148,7 +148,7 @@ char *data;
     return (AuID) ~ 0L;
 }
 
-ResetAuthorization()
+void ResetAuthorization()
 {
     int i;
 
@@ -175,7 +175,7 @@ char *data;
     return (AuID) ~ 0L;
 }
 
-AuthorizationFromID(id, name_lenp, namep, data_lenp, datap)
+int AuthorizationFromID(id, name_lenp, namep, data_lenp, datap)
 AuID id;
 unsigned short *name_lenp;
 char **namep;
@@ -194,7 +194,7 @@ char **datap;
     return 0;
 }
 
-RemoveAuthorization(name_length, name, data_length, data)
+int RemoveAuthorization(name_length, name, data_length, data)
 unsigned short name_length;
 char *name;
 unsigned short data_length;
@@ -211,7 +211,7 @@ char *data;
     return 0;
 }
 
-AddAuthorization(name_length, name, data_length, data)
+int AddAuthorization(name_length, name, data_length, data)
 unsigned short name_length;
 char *name;
 unsigned short data_length;

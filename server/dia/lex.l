@@ -54,7 +54,7 @@ number                          [0-9]+
                                 }
 %%
 #ifndef yywrap
-yywrap()
+int yywrap()
 {
     return (1);
 }

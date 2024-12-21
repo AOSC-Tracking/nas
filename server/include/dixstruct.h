@@ -81,4 +81,7 @@ extern void CloseDownClient();
 
 extern void UpdateCurrentTimeIf(void);
 
+void ProcessWorkQueue(void);
+Bool QueueWorkProc(Bool(*function)(), ClientPtr client, pointer closure);
+
 #endif /* DIXSTRUCT_H */

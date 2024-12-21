@@ -59,6 +59,14 @@ static void _AuOCOutOfMemory();
 
 static int xferConnectionSetup();
 
+AuBool
+_AuSendClientPrefix (
+     AuServer *aud,
+     auConnClientPrefix *client,	/* contains count for auth_* */
+     char *auth_proto, 
+     char *auth_string	/* NOT null-terminated */
+     );
+
 /*****************************************************************************
  *				 AuOpenServer				     *
  *****************************************************************************/
